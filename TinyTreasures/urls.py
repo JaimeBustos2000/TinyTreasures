@@ -23,6 +23,6 @@ urlpatterns = [
     path('Contacto/', include('Contacto.urls')),
     path('Ayuda/', include('Ayuda.urls')),
     path('ListaProductos/', include('ListaProductos.urls')),
-    path('LoginRegistro/', include('LoginRegistro.urls')),
+    path('LoginRegistro/', include('IniciarSesion.urls')),
     path('EdicionProductos/', include('EdicionProductos.urls')),
 ]

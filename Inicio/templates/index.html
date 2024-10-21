@@ -6,22 +6,36 @@
         <title>INICIO</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'inicio/css/base.css' %}">
         {% block css %}
         {% endblock %}
     </head>
     <body>
         <nav class="nav">
-            <button type="button" class="btn-nav" onclick="window.location.href='/'">Inicio</button>
-            <button type="button" class="btn-nav" onclick="window.location.href='/ListaProductos'">Productos</button>
-            <button type="button" class="btn-nav" onclick="window.location.href='/Contacto'">Contacto</button>
-            <button type="button" class="btn-nav" onclick="window.location.href='/Ayuda'">Ayuda</button>
-            <button type="button" class="btn-nav" onclick="window.location.href='/LoginRegistro/registro'">Registro</button>
-            <button type="button" class="btn-nav" onclick="window.location.href='/LoginRegistro/login'">Login</button>
-        </nav>
+            <img src="logo.png" alt="TinyTreasures" class="img-logo">
 
+
+            
+            <div class="buttons-container">
+                <button type="button" class="btn-nav" onclick="window.location.href='/'">Inicio</button>
+
+                <button type="button" id="btn-products" onclick="window.location.href='/ListaProductos'">
+                    <svg width="100px" height="100px" viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+                        <path class="path" d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"/>
+                        </svg></button>
+
+                <button type="button" class="btn-nav" onclick="window.location.href='/Contacto'">Contacto</button>
+                <button type="button" class="btn-nav" onclick="window.location.href='/Ayuda'">Ayuda</button>                
+                <button type="button" class="btn-nav" onclick="window.location.href='/IniciarSesion/login'">Registro</button>
+                <button type="button" id="registro-btn" onclick="window.location.href='/IniciarSesion/registro'">Registro</button>
+
+            </div>
+        </nav>
     <main>
         {% block content %}
+        <h1 class="title">Bienvenido a TinyTreasures</h1>
+        <h3>La tienda online a menor escala del mercado tanto para compradores como para vendedores <br><span class="">Inicia sesion ya para que puedas añadir productos a tu carrito</span></h3>
         {% endblock %}
     </main>
 
