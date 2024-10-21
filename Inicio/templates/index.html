@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>INICIO</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        {% block css %}
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="nav">
+            <button type="button" class="btn-nav" onclick="window.location.href='/'">Inicio</button>
+            <button type="button" class="btn-nav" onclick="window.location.href='/ListaProductos'">Productos</button>
+            <button type="button" class="btn-nav" onclick="window.location.href='/Contacto'">Contacto</button>
+            <button type="button" class="btn-nav" onclick="window.location.href='/Ayuda'">Ayuda</button>
+            <button type="button" class="btn-nav" onclick="window.location.href='/LoginRegistro/registro'">Registro</button>
+            <button type="button" class="btn-nav" onclick="window.location.href='/LoginRegistro/login'">Login</button>
+        </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2021 - Todos los derechos reservados</p>
+    </footer>
+    </body>
+</html>
