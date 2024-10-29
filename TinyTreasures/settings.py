@@ -31,9 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'IniciarSesion',
+    'Ingreso',
     'TinyTreasures',
-    'ListaProductos',
+    'Productos',
     'Inicio',
     'Contacto',
     'Ayuda',

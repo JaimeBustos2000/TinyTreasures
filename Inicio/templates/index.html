@@ -3,44 +3,86 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% block title%}
         <title>INICIO</title>
+        {% endblock %}
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
         {% load static %}
         <link rel="stylesheet" href="{% static 'inicio/css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'inicio/css/footer.css' %}">
         {% block css %}
         {% endblock %}
     </head>
+
     <body>
-        <nav class="nav">
-            <img src="logo.png" alt="TinyTreasures" class="img-logo">
+        <div class="body">
+            <nav class="nav">
+                <a href="/" title="Inicio">
+                    <img src="{% static 'inicio/img/logo.png'%}" alt="TinyTreasures" class="img-logo">
+                </a>
 
-
-            
-            <div class="buttons-container">
-                <button type="button" class="btn-nav" onclick="window.location.href='/'">Inicio</button>
-
-                <button type="button" id="btn-products" onclick="window.location.href='/ListaProductos'">
-                    <svg width="100px" height="100px" viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
-                        <path class="path" d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"/>
+                <div class="buttons-container">
+                    <button type="button" id="btn-cart" onclick="window.location.href='/'" title="Carrito">
+                        <svg width="800px" height="800px" viewBox="0 0 24 24" class="icon" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="path" d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"/>
                         </svg></button>
 
-                <button type="button" class="btn-nav" onclick="window.location.href='/Contacto'">Contacto</button>
-                <button type="button" class="btn-nav" onclick="window.location.href='/Ayuda'">Ayuda</button>                
-                <button type="button" class="btn-nav" onclick="window.location.href='/IniciarSesion/login'">Registro</button>
-                <button type="button" id="registro-btn" onclick="window.location.href='/IniciarSesion/registro'">Registro</button>
+                    <button type="button" id="btn-products" onclick="window.location.href='/Productos'" title="Buscar">
+                        <svg width="100px" height="100px" viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+                            <path class="path" d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"/>
+                            </svg></button>
 
+                    <button type="button" class="btn-nav" onclick="window.location.href='/Ayuda'">Ayuda</button>  
+                    <button type="button" class="btn-nav" onclick="window.location.href='/Contacto'">Contacto</button>
+                    <button type="button" id="login-btn" onclick="window.location.href='/Ingreso/login'">Iniciar Sesion</button>
+                    <button type="button" id="registro-btn" onclick="window.location.href='/Ingreso/registro'">Registro</button>
+
+                </div>
+            </nav>
+        <main>
+            {% block content %}
+            <h1 class="title">Bienvenido a TinyTreasures</h1>
+            <h3>La tienda online a menor escala del mercado tanto para compradores como para vendedores <br><span class="">Inicia sesion ya para que puedas añadir productos a tu carrito</span></h3>
+            {% endblock %}
+        </main>
+
+        <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Informacion</h3>
+                <ul>
+                    <li><a href="/Ayuda">Ayuda</a></li>
+                    <li><a href="/Contacto">Contacto</a></li>
+                    <li><a href="/Terminos">Terminos y condiciones</a></li>
+                </ul>
             </div>
-        </nav>
-    <main>
-        {% block content %}
-        <h1 class="title">Bienvenido a TinyTreasures</h1>
-        <h3>La tienda online a menor escala del mercado tanto para compradores como para vendedores <br><span class="">Inicia sesion ya para que puedas añadir productos a tu carrito</span></h3>
-        {% endblock %}
-    </main>
 
-    <footer>
+            <div class="footer-section">
+                <h3>Productos</h3>
+                <ul>
+                    <li><a href="/Productos">Buscar</a></li>
+                    <li><a href="/Productos">Productos</a></li>
+                    <li><a href="/Productos">Ofertas</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com">Facebook</a></li>
+                    <li><a href="https://www.instagram.com">Instagram</a></li>
+                    <li><a href="https://www.twitter.com">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
         <p>© 2021 - Todos los derechos reservados</p>
-    </footer>
+        </footer>
+    </div>
     </body>
 </html>

@@ -1,0 +1,7 @@
+# Ignorar archivos cache de python
+__pycache__/
+*.pyc
+*.pyo
+*.swp
+*.log
+

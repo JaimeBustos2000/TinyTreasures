@@ -1,0 +1,36 @@
+footer{
+    background-color: #2e2e2e;
+}
+
+footer p{
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    font-family: NotoSerif SC;
+}
+
+.footer-container{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    color: #fff;
+    padding: 10px;
+    gap: 10px;
+    
+}
+
+.footer-section ul li{
+    padding: 5px; 
+    font-size: 20px;
+    font-family: NotoSerif SC;
+}
+
+a{
+    color: #fff;
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
