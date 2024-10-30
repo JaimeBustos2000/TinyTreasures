@@ -7,6 +7,29 @@
 {% block title %}
     <title>Productos</title>
 {% endblock %}
-PRODUCTOS
+
 {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center">Productos</h1>
+            </div>
+        </div>
+        <div class="row">
+            {% for producto in productos %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img src="{{producto.imagen.url}}" class="card-img-top" alt="{{producto.nombre}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{producto.nombre}}</h5>
+                            <p class="card-text">{{producto.descripcion}}</p>
+                            <p class="card-text">{{producto.precio}}</p>
+                            <a href="{% url 'detalle_producto' producto.id %}" class="btn btn-primary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
 {% endblock%}
