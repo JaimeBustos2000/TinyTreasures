@@ -11,19 +11,17 @@
 
 {% block content %}
 
-{% if error %}
-    <p>{{ error }}</p>
-{% endif %}
-
 <div class="login-container">
     
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
+
 
     <form action="{% url 'loginIn' %}" method="POST" class="form-login">
         {% csrf_token %}
 
+        {% if error %}
+            <h1 id="error">{{ error }}</h1>
+        {% endif %}
+        
         {{ login.as_p }}
 
         <button type="submit" class="btn-login">

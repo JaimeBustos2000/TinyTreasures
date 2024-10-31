@@ -27,30 +27,43 @@
 
     </head>
 
-    <body>
-        <div class="body">
-            <nav class="navi">
-                <a href="/" title="Inicio">
-                    <img src="{% static 'inicio/img/logo.png'%}" alt="TinyTreasures" class="img-logo">
-                </a>
-
-                <div class="buttons-container">
-                    <button type="button" id="btn-cart" onclick="window.location.href='/'" title="Carrito">
-                        <svg width="800px" height="800px" viewBox="0 0 24 24" class="icon" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="path" d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"/>
-                        </svg></button>
-
-                    <button type="button" id="btn-products" onclick="window.location.href='/Productos'" title="Buscar">
-                        <svg width="100px" height="100px" viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
-                            <path class="path" d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"/>
-                            </svg></button>
-
-                    <button type="button" class="btn-nav" onclick="window.location.href='/Ayuda'">Ayuda</button>  
-                    <button type="button" class="btn-nav" onclick="window.location.href='/Contacto'">Contacto</button>
+<body>
+    <div class="body">
+        <nav class="navi">
+            <a href="/" title="Inicio">
+                <img src="{% static 'inicio/img/logo.png'%}" alt="TinyTreasures" class="img-logo">
+            </a>
+            <div class="buttons-container">
+                <button type="button" id="btn-cart" onclick="window.location.href='/'" title="Carrito">
+                    <svg width="800px" height="800px" viewBox="0 0 24 24" class="icon" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="path" d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"/>
+                    </svg>
+                </button>
+            
+                <button type="button" id="btn-products" onclick="window.location.href='/Productos'" title="Buscar">
+                    <svg width="100px" height="100px" viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+                        <path class="path" d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"/>
+                    </svg>
+                </button>
+            
+                <button type="button" class="btn-nav" onclick="window.location.href='/Ayuda'">Ayuda</button>  
+                <button type="button" class="btn-nav" onclick="window.location.href='/Contacto'">Contacto</button>
+            
+                {% if request.session.user_role == 'empresa' %}
+                    <button type="button" class="btn-nav" onclick="window.location.href='/EditarProductos'">Editar Productos</button>
+                    <button type="button" class="btn-nav" onclick="window.location.href='/desconectar'">Desconectar</button>
+                    <button type="button" class="btn-nav" onclick="window.location.href='/perfil'">Perfil</button>
+                {% endif %}
+            
+                {% if request.session.user_role == 'individual' %}
+                    <button type="button" class="btn-nav" onclick="window.location.href='/perfil'">Perfil</button>
+                    <button type="button" class="btn-nav" onclick="window.location.href='/desconectar'">Desconectar</button>
+                {% else %}
                     <button type="button" id="login-btn" onclick="window.location.href='/Ingreso/login'">Iniciar Sesion</button>
                     <button type="button" id="registro-btn" onclick="window.location.href='/Ingreso/registro'">Registro</button>
-                </div>
-            </nav>
+                {% endif %}
+            </div>
+        </nav>
         <main>
             {% block content %}
             <h1 class="title">Bienvenido a TinyTreasures</h1>

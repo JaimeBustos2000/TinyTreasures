@@ -5,14 +5,23 @@ from .psw import PasswordManager
 from .auth import Auth
 
 class User(Auth,PasswordManager):
-    def __init__(self,email,password):
+    def __init__(self,email="",password=""):
         super().__init__()
         self.__email = email
         self.__password = password
         self.valid_created = False
 
+    def delete_app(self):
+        if self.app:
+            firebase_admin.delete_app(self.app)
+
     def valid_credentials(self):
-        self.auth = auth.get_user_by_email(self.__email)
+        try:
+            self.auth = auth.get_user_by_email(self.__email)
+        except auth.UserNotFoundError:
+            print('Usuario no encontrado')
+            return False
+        
         self.uid = self.auth.uid
         
         if self.auth and self.uid:
@@ -53,8 +62,7 @@ class User(Auth,PasswordManager):
             print('Error al enviar correo de verificación:', e)
             
     def authenticate_email_password(self):
-        # Usa la Web API Key que encontraste en la consola de Firebase
-        api_key = 'AIzaSyBUW2nB7m5o7UNGW24a8CcViSD5ZE6ySBY'  # Reemplaza con tu Web API Key
+        api_key = 'AIzaSyBUW2nB7m5o7UNGW24a8CcViSD5ZE6ySBY'
         url = f'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={api_key}'
 
         payload = {
@@ -67,10 +75,11 @@ class User(Auth,PasswordManager):
         if response.status_code == 200:
             user_data = response.json()
             id_token = user_data.get('idToken')
-            role = self.obtain_user_uid_role()
-            print('role:', role)
-            return id_token
+            return True
         else:
             print("Error al iniciar sesión:", response.json())
-            return None
+            return False
 
+    def obtain_user_data(self,uid):
+        user_data = self.users.document(self.uid).get().to_dict()
+        return user_data

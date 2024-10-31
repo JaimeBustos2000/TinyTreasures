@@ -12,6 +12,13 @@ h1{
     margin-top: 50px;
 }
 
+#error{
+    display: block;
+    text-align: center;
+    color: #ff0000;
+    font-size: 20px;
+}
+
 .login-container{
     display: flex;
     justify-content: center;

@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Perfil</h1>
+    <ul>
+        <li>Nombre: {{ data.nombre }}</li>
+        <li>RUT: {{ data.rut }}</li>
+        <li>Teléfono: {{ data.telefono }}</li>
+        <li>Correo: {{ data.correo }}</li>
+    </ul>
+{% endblock %}
