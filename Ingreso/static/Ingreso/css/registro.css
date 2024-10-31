@@ -1,0 +1,80 @@
+.card-header{
+    background-color: #fff;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.container{
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.registroform{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-bottom: 3px;
+    color: #555;
+    font-family: Notoserif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+input[type="text"], input[type="email"], input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+p{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: #333;
+}
+
+p label{
+    text-align: start;
+}
+
+.create-account{
+    background-color: rgb(46, 46, 46);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.create-account:hover{
+    background-color: rgb(0, 0, 0);
+}
+
+
+.terms-check, .form-switch{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.terms-check a{
+    color: black;
+    text-decoration:underline;
+}
+
+.terms-check a:hover{
+    color: blue;
+}

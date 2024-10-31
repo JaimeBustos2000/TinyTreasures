@@ -1,33 +1,37 @@
 import firebase_admin
-from firebase_admin import credentials,firestore,exceptions
+from firebase_admin import credentials,firestore,exceptions,auth
 import asyncio
+
+import firebase_admin.auth
+
+
 
 class Auth:
     def __init__(self):
         self.cred = credentials.Certificate("FirebaseData/firebase-credentials.json")
         self.app = firebase_admin.initialize_app(self.cred)
         self.db = firestore.client()
-
+        self.users = self.db.collection("users")
+        self.products = self.db.collection("productos")
+        asyncio.run(self.main())
+        
     def get_db(self):
         return self.db
     
     async def create_collections(self):    
         try:
-            if self.db.collection("productos").get() or self.db.collection("users").get():
+            if self.users.get() or self.products.get() or self.db.collection("productos").get():
                 print("Colecciones ya existen")
                 return
             self.principal_db = self.db.collection("productos").document().set({"Producto prueba":"Producto 1"})
             self.secondary_db = self.db.collection("users").document().set({"Usuario prueba":"Usuario 1","pasword":"1234"})
             
-        except exceptions.CONFLICT:
-            print("Error al crear colecciones")
+        except Exception as e:
+            print("Error al crear colecciones: ",e)
             
     async def main(self):
         await self.create_collections()
         
-if __name__ == "__main__":
-    auth = Auth()
-    asyncio.run(auth.main())
 
 
 """ cred = credentials.Certificate("FirebaseData/firebase-credentials.json")
