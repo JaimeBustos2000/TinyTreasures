@@ -3,6 +3,7 @@ from django.urls import reverse
 from .forms import Login
 from FirebaseData.users import User
 from inputsclean.cleaninputs import cleaninputs
+from FirebaseData.querys import dataOperations
 import json
 import os
 
@@ -18,7 +19,7 @@ def loginIn(request):
             
             email = form.cleaned_data['email']
             cleaner = cleaninputs(email)
-            
+
             try:
                 valid_entry, error = cleaner.clean_email()
                 print("error",error)
@@ -27,16 +28,25 @@ def loginIn(request):
 
             if valid_entry:
                 password = form.cleaned_data['password']
-                user = User(email,password)
-
-                if user.valid_credentials():
-                    if user.authenticate_email_password():
-                        print('Usuario autenticado')
-                        uid = user.valid_credentials()
-                        role = user.obtain_user_uid_role()
+                
+                # Crear una instancia de la clase User que realiza la autenticación
+                usermana = User(email,password)
+                # Se pasa la referencia de la base de datos de la clase user a la clase dataOperations
+                db = usermana.bd_references()
+                # Se crea una instancia de la clase dataOperations que manipula los datos de la base de datos
+                operationDB = dataOperations(db)
+                
+                # Se verifica si el usuario existe en la base de datos de firebase
+                if usermana.valid_credentials(email):
+                    # Se simula un inicio de sesion a firebase
+                    if usermana.authenticate_email_password():
+                        # Se obtiene el uid del usuario para obtener su rol solo por medio de la otra clase
+                        uid = usermana.valid_credentials(email)
+                        role = operationDB.obtain_user_role_from_uid(uid)
+                        
+                        user_data = operationDB.obtain_user_data(uid)
                         request.session['user_id'] = uid
                         request.session['user_role'] = role
-                        user_data = user.obtain_user_data(uid)
                         user_data['correo'] = email
                         request.session['data'] = user_data
 
@@ -48,17 +58,17 @@ def loginIn(request):
                             json.dump(session_data, file)
 
                         print('Sesión guardada:', session_data)
-                        user.delete_app()
+                        usermana.delete_app()
                         return redirect(reverse('index'))
                     
                     else:
-                        user.delete_app()
+                        usermana.delete_app()
                         error = "No hay usuario o contraseña con esas credenciales"
                         return render(request,'login.html',context={
                             "error":error,  
                             "login":form})
                 else:
-                    user.delete_app()
+                    usermana.delete_app()
                     error = "No se pudo autenticar el usuario, error al ingresar el email o contraseña"
                     return render(request,'login.html',context={
                         "error":error,

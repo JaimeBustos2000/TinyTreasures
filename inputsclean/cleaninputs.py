@@ -1,4 +1,6 @@
 import re
+import hashlib
+import requests
 
 class cleaninputs:
     def __init__(self, entry:str):
@@ -36,7 +38,7 @@ class cleaninputs:
 
     def check_format_email(self):
         before_arroba = self.entry.split('@')[0]
-        regex = r'^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)?$'
+        regex = r'^[a-zA-Z][a-zA-Z0-9]*(\.[a-zA-Z0-9]+)?$'
         
         first_condition = bool(re.match(regex, before_arroba))
         
@@ -70,8 +72,9 @@ class cleaninputs:
 
     def check_format_rut(self):
         if '-' not in self.entry:
-            print('RUT inválido: falta guión')
-            return False
+            error = 'RUT inválido: falta guión separador'
+            print(error)
+            return False, error
 
         # Invertir el RUT y limpiar caracteres
         rut_reverse = self.entry[::-1]
@@ -83,8 +86,8 @@ class cleaninputs:
 
         print("rut_numeros:", rut_numeros)
         if not rut_numeros.isdigit():
-            print('RUT inválido: caracteres no numéricos en la parte numérica')
-            return False
+            error = 'RUT inválido: caracteres no numéricos en la parte numérica'
+            return False, error
 
         serie = [2, 3, 4, 5, 6, 7]
         serie_index = 0
@@ -107,11 +110,36 @@ class cleaninputs:
             print('RUT válido')
             return True
         else:
-            print('RUT inválido: dígito verificador incorrecto')
-            return False
+            error = 'RUT inválido: dígito verificador incorrecto'
+            return False, error
 
+    def is_password_secure(self):
         
-"""email_checker = cleaninputs('jaimebustos@gmail.com')
+        # Obtener el hash de la contraseña en formato SHA-1
+        sha1_hash = hashlib.sha1(self.entry.encode()).hexdigest().upper()
+        prefix = sha1_hash[:5]
+        suffix = sha1_hash[5:]
+
+        # Hacer la solicitud a la API de HIBP
+        response = requests.get(f"https://api.pwnedpasswords.com/range/{prefix}")
+
+        if response.status_code != 200:
+            raise RuntimeError(f"Error fetching: {response.status_code}")
+
+        # Comprobar si el sufijo del hash está en la respuesta
+        hashes = (line.split(':') for line in response.text.splitlines())
+        for h, count in hashes:
+            if h == suffix:
+                return True
+
+        return False
+
+
+
+"""
+explain use example:
+
+email_checker = cleaninputs('jaimebustos@gmail.com')
 is_valid_email = email_checker.clean_email()"""
 
 """rut_checker = cleaninputs('7810239-k')

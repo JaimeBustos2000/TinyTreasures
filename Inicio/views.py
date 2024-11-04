@@ -5,7 +5,7 @@ def index(request):
 
 def perfil(request):
     data = request.session.get('data', {})
-    print(data)
+    
     return render(request,'perfil.html',context={"data":data})
 
 def desconectar(request):

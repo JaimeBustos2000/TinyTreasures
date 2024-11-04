@@ -1,11 +1,35 @@
 {% extends "index.html" %}
+{% load static %}
+
+{% block css%}
+<link rel="stylesheet" href="{% static 'Inicio/css/perfil.css' %}">
+{% endblock %}
+
+
+{% block title %}Perfil{% endblock %}
 
 {% block content %}
+<div class="container">
     <h1>Perfil</h1>
-    <ul>
-        <li>Nombre: {{ data.nombre }}</li>
-        <li>RUT: {{ data.rut }}</li>
-        <li>Teléfono: {{ data.telefono }}</li>
-        <li>Correo: {{ data.correo }}</li>
-    </ul>
+    <section>
+        <li><span class="datanames">Nombre: </span>
+            <span class="datavalues">{{ data.nombre }} </span>
+        </li>
+        <li><span class="datanames">Rut: </span> 
+            <span class="datavalues">{{ data.rut }} </span>
+        </li>
+        <li><span class="datanames">Teléfono: </span>
+            <span class="datavalues">{{ data.telefono }} </span>
+        </li>
+        <li><span class="datanames">Correo: </span> 
+            <span class="datavalues">{{ data.correo }} </span>
+        </li> 
+    </section>
+
+    <button type="button" class="edit-btn">Editar datos personales</button>
+
+</div>
+
+<script src="{% static 'Inicio/js/perfil.js' %}"></script>
 {% endblock %}
+
