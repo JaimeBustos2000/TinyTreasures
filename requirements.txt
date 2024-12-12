@@ -1,4 +1,4 @@
-django>=3.2,<4.0
+django>=4.2.16
 firebase-admin>=5.0.0
 pyrebase4>=4.5.0
 django-cors-headers>=3.7.0
