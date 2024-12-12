@@ -1,0 +1,49 @@
+.add{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    border-radius: 15px;
+    background-color: #bdccf5;
+    padding: 10px 20px;
+}
+
+.form-new-product{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding: 10px 20px;
+    width: 50%;
+}
+
+.form-new-product label{
+    margin-top: 10px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.form-new-product input{
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.form-new-product textarea{
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    min-height: 100px;
+}

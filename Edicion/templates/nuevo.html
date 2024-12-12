@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'Edicion/css/nuevo.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Añadir</title>
+{% endblock %}
+
+{% block content %}
+{% if error %}
+    <h1 id="error" class="error" >{{ error }}</h1>
+{% endif %}
+
+<button class="back" onclick="window.location.href='/Mis-Productos'">Volver</button>
+<div class="add">    
+    <form action="{% url 'addproduct' %}" method="POST" id="form-new-product" class="form-new-product" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required></textarea>
+
+        <label for="precio">Precio(clp):</label>
+        <input type="number" id="precio" name="precio" required>
+
+        <label for="stock">Stock</label>
+        <input type="number" id="stock" name="stock" required>
+
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" name="categoria" required>
+            <option value="" disabled selected>Seleccione una opcion</option>
+            {% for categoria in categorias %}
+                <option value="{{ categoria }}">{{ categoria }}</option>
+            {% endfor %}
+        </select>
+        
+        <input type="text" id="marca" name="marca" value="{{ marca }}" hidden required>
+
+        <label for="image">Imagen(recomendado:cuadrado o vertical )<br>Tipos de archivo soportados: jpg,webp,png </label>
+        <input type="file" id="image" name="image" required>
+    
+        <button type="submit">Añadir</button>
+    </form>
+    <script src="{% static 'Edicion/js/añadir.js' %}"></script>
+</div>
+
+{% endblock%}

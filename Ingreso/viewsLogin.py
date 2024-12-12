@@ -1,13 +1,14 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from .forms import Login
-from FirebaseData.users import User
+from Data.users import User
 from inputsclean.cleaninputs import cleaninputs
-from FirebaseData.querys import dataOperations
+from Data.querys import dataOperations
 import json
 import os
+from .models import Users
 
-def login(request):
+def login_page(request):
     login = Login()
     return render(request,'login.html',context={"login":login})
 
@@ -16,6 +17,7 @@ def loginIn(request):
     if request.method=="POST":
         form = Login(request.POST)
         if form.is_valid():
+            print("form: ",form.cleaned_data)
             
             email = form.cleaned_data['email']
             cleaner = cleaninputs(email)
@@ -38,8 +40,9 @@ def loginIn(request):
                 
                 # Se verifica si el usuario existe en la base de datos de firebase
                 if usermana.valid_credentials(email):
+                    user = Users.objects.get(email=email)
                     # Se simula un inicio de sesion a firebase
-                    if usermana.authenticate_email_password():
+                    if usermana.authenticate_email_password() and user.check_password(password):
                         # Se obtiene el uid del usuario para obtener su rol solo por medio de la otra clase
                         uid = usermana.valid_credentials(email)
                         role = operationDB.obtain_user_role_from_uid(uid)
@@ -75,6 +78,7 @@ def loginIn(request):
                         "login":form})
 
             else:
+                
                 return render(request,'login.html',context={"error":error,
                                                             "login":form})
         else:

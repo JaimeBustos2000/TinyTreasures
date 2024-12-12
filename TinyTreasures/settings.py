@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,18 +26,20 @@ SECRET_KEY = 'django-insecure-m0x2@!a3b^832m3#j!4m7&cgm+^wvr86ef1ll#$e6n=&92pcu7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://127.0.0.1:8000/','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'Ingreso',
     'TinyTreasures',
     'Productos',
     'Inicio',
     'Contacto',
     'Ayuda',
+    'Edicion',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,3 +129,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login URL
+LOGIN_URL = '/'
+
+MEDIA_URL ='/public/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'public')

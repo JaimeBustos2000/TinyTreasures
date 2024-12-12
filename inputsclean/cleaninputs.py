@@ -1,6 +1,5 @@
 import re
-import hashlib
-import requests
+import pwnedpasswords
 
 class cleaninputs:
     def __init__(self, entry:str):
@@ -113,28 +112,16 @@ class cleaninputs:
             error = 'RUT inválido: dígito verificador incorrecto'
             return False, error
 
-    def is_password_secure(self):
-        
-        # Obtener el hash de la contraseña en formato SHA-1
-        sha1_hash = hashlib.sha1(self.entry.encode()).hexdigest().upper()
-        prefix = sha1_hash[:5]
-        suffix = sha1_hash[5:]
+    def is_password_secure(self, password):
+        is_secure_pass = pwnedpasswords.check(password, plain_text=True)
+        if is_secure_pass:
+            return False
+        else:
+            return True
 
-        # Hacer la solicitud a la API de HIBP
-        response = requests.get(f"https://api.pwnedpasswords.com/range/{prefix}")
-
-        if response.status_code != 200:
-            raise RuntimeError(f"Error fetching: {response.status_code}")
-
-        # Comprobar si el sufijo del hash está en la respuesta
-        hashes = (line.split(':') for line in response.text.splitlines())
-        for h, count in hashes:
-            if h == suffix:
-                return True
-
-        return False
-
-
+pass_checker = cleaninputs('12312313132')
+is_secure = pass_checker.is_password_secure('XD12312313132')
+print (is_secure)
 
 """
 explain use example:

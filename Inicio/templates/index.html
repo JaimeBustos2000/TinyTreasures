@@ -50,12 +50,10 @@
                 <button type="button" class="btn-nav" onclick="window.location.href='/Contacto'">Contacto</button>
             
                 {% if request.session.user_role == 'empresa' %}
-                    <button type="button" class="btn-nav" onclick="window.location.href='/EditarProductos'">Editar Productos</button>
-                    <button type="button" class="btn-nav" onclick="window.location.href='/desconectar'">Desconectar</button>
+                    <button type="button" class="btn-nav" onclick="window.location.href='/Mis-Productos'">Mis Productos</button>
                     <button type="button" class="btn-nav" onclick="window.location.href='/perfil'">Perfil</button>
-                {% endif %}
-            
-                {% if request.session.user_role == 'individual' %}
+                    <button type="button" class="btn-nav" id="disconnect" onclick="window.location.href='/desconectar'">Desconectar</button>
+                {% elif request.session.user_role == 'individual' %}
                     <button type="button" class="btn-nav" onclick="window.location.href='/perfil'">Perfil</button>
                     <button type="button" class="btn-nav" onclick="window.location.href='/desconectar'">Desconectar</button>
                 {% else %}
@@ -64,6 +62,7 @@
                 {% endif %}
             </div>
         </nav>
+        <script src="{% static 'Inicio/js/limpiarcache.js' %}"></script>
         <main>
             {% block content %}
             <h1 class="title">Bienvenido a TinyTreasures</h1>
