@@ -64,16 +64,51 @@ async function fetchData() {
 }
 
 async function Products() {
+    // Borrar primero la cached data
     const cachedData = sessionStorage.getItem('apiproducts');
     if (cachedData) {
-        console.log('Data from cache:', cachedData);
-        return JSON.parse(cachedData);
+        console.log('Data from cache in apiproducts:', cachedData);
+        var jsondata = JSON.parse(cachedData);
+        var container = document.getElementsByClassName('cards')[0]; 
+        var html = '';
+
+        for (var key in jsondata) {
+            if (jsondata.hasOwnProperty(key)) {
+                let producto = jsondata[key];
+                let productUrl = 'http://127.0.0.1:8000/' + producto.url;
+                console.log('Product URL:', productUrl);
+                const productUrlParts = producto.url.split('/');
+                const productCode = productUrlParts[productUrlParts.length - 2];
+                const destinationUrl = `/Productos/detail/${productCode}`;
+
+                html += `
+                    <div class="box-size">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="image-container">
+                                    <img src="${productUrl}" class="card-img-top" id="product-image" alt="${producto.nombre}">
+                                </div>
+                                <h5 class="card-title">${producto.nombre}</h5>
+                                <p class="card-text">$${producto.precio}</p>
+                                <p class="card-text">Disponibles: ${producto.stock}</p>
+                                
+                                <a href="${destinationUrl}" class="btn btn-primary">Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        container.innerHTML = html;
+
     } else {
         console.log('No data in cache. Fetching from API');
 
         const response = await fetchProducts();
-        if (response && response.products) {
-            const products = response.products;
+        console.log('Response:', response);
+        if (response && response.productos) {
+            const products = response.productos;
             sessionStorage.setItem('apiproducts', JSON.stringify(products));
             console.log('Data from API in Products:', products);
             return products;

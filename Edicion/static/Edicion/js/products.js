@@ -45,21 +45,26 @@ function render_products() {
 
         datos.forEach(product => {
             let productUrl = 'http://127.0.0.1:8000/' + product.url;
+            const productUrlParts = product.url.split('/');
+            const productCode = productUrlParts[2];
+
+            
+            const destinationUrl = `/Mis-Productos/edit/${productCode}`; 
 
             html += `
-            <div class="card">
-                <div class="card-body">
-                    <div class="image-container">
-                        <img src="${productUrl}" class="card-img-top" alt="${product.nombre}">
+            <a href="${destinationUrl}" class="card-link" title="Ver mas">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="image-container">
+                            <img src="${productUrl}" class="card-img-top" alt="${product.nombre}">
+                        </div>
+                        <h5 class="card-title">${product.nombre}</h5>
+                        <p class="card-text">Precio: ${product.precio}</p>
+                        <p class="card-text">Stock: ${product.stock}</p>
+                        <p class="card-text">Categoría: ${product.categoria}</p>
                     </div>
-                    <h5 class="card-title">${product.nombre}</h5>
-                    <p class="card-text">Descripción: ${product.descripcion}</p>
-                    <p class="card-text">Precio: ${product.precio}</p>
-                    <p class="card-text">Stock: ${product.stock}</p>
-                    <p class="card-text">Marca: ${product.marca}</p>
-                    <p class="card-text">Categoría: ${product.categoria}</p>
                 </div>
-            </div>
+            </a>
             `;
         });
         container.innerHTML = html;

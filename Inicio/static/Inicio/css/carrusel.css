@@ -1,0 +1,62 @@
+.carousel {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    background-color: white;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+    border-radius: 25px;
+}
+
+/* Ajuste de las imágenes dentro del carrusel */
+.carousel-item {
+    height: auto;
+    /* Ajustar automáticamente la altura según la imagen */
+    width: 100%;
+    /* Hacer que la imagen ocupe todo el ancho del contenedor */
+    flex: 0 0 auto;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Definir un tamaño adecuado para las imágenes */
+.imagenes {
+    width: 100%;
+    background-color: white;
+    /* La imagen ocupa todo el ancho del carrusel */
+    height: 300px;
+    /* Altura personalizada (ajústalo según el tamaño que desees) */
+    object-fit: contain;
+    /* Ajustar la imagen manteniendo la proporción sin recortes */
+}
+
+/* Estilo de los controles del carrusel */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: rgba(255, 255, 255, 0.247);
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-control.prev {
+    left: 0;
+}
+
+.carousel-control.next {
+    right: 0;
+}
+
+.carousel-item.active {
+    display: block;
+}

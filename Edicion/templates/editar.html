@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'Edicion/css/producto.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Mis productos</title>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="image-container">
+            <img src={{producto.url}} class="card-img-top" alt={{producto.nombre}}>
+        </div>
+        
+        <h5 class="card-title">Nombre: {{producto.nombre}}</h5>
+        <p class="card-text">Descripcion: {{producto.descripcion}}</p>
+        <p class="card-text">Precio: {{producto.precio}}</p>
+        <p class="card-text">Stock: {{producto.stock}}</p>
+        <p class="card-text">Categoría: {{producto.categoria}}</p>
+    </div>
+</div>
+{% endblock %}

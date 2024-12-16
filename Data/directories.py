@@ -1,6 +1,6 @@
 import os
 from PIL import Image
-
+import random
 
 class DirectoriManager:
     def __init__(self):
@@ -78,4 +78,20 @@ class DirectoriManager:
         return len(os.listdir(user_dir)) == 0
 
 
-
+    def get_random_images(self):
+        imagenes = []
+        for comerciante in os.listdir('public'):
+            comerciante_path = os.path.join('public', comerciante)
+            
+            if os.path.isdir(comerciante_path):
+                for producto_folder in os.listdir(comerciante_path):
+                    producto_path = os.path.join(comerciante_path, producto_folder)
+                    
+                    if os.path.isdir(producto_path):
+                        for image in os.listdir(producto_path):
+                            if image.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
+                                image_path = os.path.join(producto_path, image)
+                                imagenes.append(image_path)
+        
+        imagenes_aleatorias = random.sample(imagenes, min(3, len(imagenes)))
+        return imagenes_aleatorias

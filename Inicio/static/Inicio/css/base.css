@@ -13,6 +13,11 @@ body{
     text-align: center;
 }
 
+h3{
+    font-size: 2em;
+    text-align: center;
+}
+
 .img-logo{
     position: absolute;
     width: 80px;
@@ -22,6 +27,7 @@ body{
 .navi{
     background-color: #fff;
     padding: 10px;
+    height: fit-content;
 }
 
 .buttons-container{
@@ -56,6 +62,16 @@ body{
     border-radius: 50%;
     background-color: black;
     border: none;
+    cursor:pointer;
+    transition: background-color 0.3s,transform 0.3s;
+}
+
+#btn-cart:active{
+    background-color: grey;
+}
+
+#btn-cart .icon:active{
+    stroke: rgb(202, 202, 202);
 }
 
 #btn-cart .icon{
@@ -68,7 +84,7 @@ body{
 }
 
 #btn-cart .icon:hover{
-    stroke:grey;
+    stroke:rgb(202, 202, 202);
 }
 
 
@@ -96,6 +112,7 @@ body{
 #btn-products .icon:hover{
     stroke:grey;
 }
+
 
 /* Boton de registro*/
 
@@ -128,4 +145,91 @@ body{
     background-color: rgb(107, 107, 107);
     cursor: pointer;
     color: white;
+}
+
+/* Sección 1 */
+.section-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: linear-gradient(135deg, #FF6B6B, #FFD93D);
+    padding: 50px;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    width: 90%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.section-1:hover {
+    transform: scale(1.05);
+}
+
+.section-1 h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    animation: fadeIn 3s ease-out;
+}
+
+.section-1 .imagenes {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.section-1 .imagenes:hover {
+    transform: scale(1.1);
+}
+
+/* Sección 2 */
+.section-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #ffffff;
+    padding: 50px;
+    text-align: center;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 90%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.section-2:hover {
+    transform: scale(1.05);
+}
+
+.section-2 h1 {
+    font-size: 2.5rem;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-out;
+}
+
+.section-2 .imagenes {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.section-2 .imagenes:hover {
+    transform: scale(1.1);
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'Productos/css/detalle_producto.css' %}">
+{% endblock %}
+{% block title %}
+    <title>Detalle del producto</title>
+{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="image-container">
+            <img src={{product.url}} class="card-img-top" id="product-image" alt={{ product.nombre }}>
+        </div>
+        
+        <h5 class="card-title text-center">Nombre: {{product.nombre}}</h5>
+        <p class="card-text text-center">Descripcion: {{product.descripcion}}</p>
+        <p class="card-text text-center">Precio: {{product.precio}}</p>
+        <p class="card-text text-center">Stock: {{product.stock}}</p>
+        <p class="card-text text-center">Categoría: {{product.categoria}}</p>
+    </div>
+
+    <div class="buy-cart-info">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Seleccione la cantidad</option>
+            {% for i in stock_list %}
+                <option value="{{i}}" onclick="updateDropdownText({{i}})">{{i}}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-primary">Comprar</button>
+        <button class="btn btn-primary">Agregar al carrito</button>
+    </div>
+</div>
+<script> </script>
+{% endblock %}

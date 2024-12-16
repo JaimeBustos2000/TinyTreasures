@@ -44,7 +44,6 @@ class dataOperations:
         user = user_table.where(filter=filter).limit(1).get()
         return bool(user)
         
-
     def create_user(self,email,passw):
         try:
             authentication = auth.create_user(email=email,password=passw)
@@ -76,7 +75,6 @@ class dataOperations:
         companies = list(set(companies))
         print('Empresas encontradas:', companies)
         return companies
-        
         
     def get_products_from_user(self,uid):
         product_table = self.__conn.collection(uid)
@@ -126,8 +124,6 @@ class dataOperations:
         
         return products_list
 
-
-
     def create_new_product_to_user(self,uid,data):
         try:
             product_table = self.__conn.collection(uid)
@@ -171,4 +167,11 @@ class dataOperations:
             # Si la clave 'folder' no está presente, también retornamos False
             return False
         
+    def get_one_product(self,uid,product_id):
+        print('UID:', uid)
+        print('Product ID:', product_id)
         
+        product_table = self.__conn.collection(uid)
+        product = product_table.document(product_id).get().to_dict()
+        print('Producto:', product)
+        return product

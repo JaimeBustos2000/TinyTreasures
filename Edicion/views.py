@@ -56,7 +56,6 @@ def product_view(request):
         "marca":marca,
         "productos":user_data})
 
-@csrf_exempt
 def new_product(request):
     if request.method == "POST":
         # Flujo de clases de interaccion con firebase y la base de datos
@@ -113,3 +112,18 @@ def new_product(request):
         
     # user.delete_app()
     return JsonResponse({"status":"ERROR","message":"Peticion invalida"},status=400)
+
+def edit_product(request,product_code):
+    print("Codigo de producto:",product_code)
+    user = User()
+    bd_ref = user.bd_references()
+    data_instance = dataOperations(bd_ref)
+    user_id = request.session["user_id"]
+    producto = data_instance.get_one_product(user_id,product_code)
+    
+    user.delete_app()
+    return render(request,'editar.html',context={
+        "categorias":categorias,
+        "colores":colores,
+        "producto":producto
+    })

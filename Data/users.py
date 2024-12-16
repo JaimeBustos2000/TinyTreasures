@@ -3,9 +3,11 @@ import requests
 import firebase_admin.auth
 from .auth import Auth
 from .sendemails import SendEmail
+from dotenv import load_dotenv
+import os
 
 """
-
+Archivo para manejar la autenticación de usuarios
 """
 class User(Auth):
     def __init__(self,email="",password=""):
@@ -29,7 +31,14 @@ class User(Auth):
             return False
 
     def authenticate_email_password(self):
-        api_key = 'AIzaSyBJCNZIzzGuamf0QkrT923ovlfMBVNgegg'
+        exists = load_dotenv('Data\.env')
+        print(exists)
+        if exists:
+            api_key = os.getenv('API_KEY')
+            print(api_key)
+        else:
+            return False
+        
         url = f'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={api_key}'
 
         payload = {
@@ -45,3 +54,4 @@ class User(Auth):
         else:
             print("Error al iniciar sesión:", response.json())
             return False
+        

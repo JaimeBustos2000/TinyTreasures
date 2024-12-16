@@ -21,7 +21,6 @@ class products_user_api(viewsets.ViewSet):
         data_op = dataOperations(db)
         data = request.session['user_id']
         products = data_op.get_products_from_user(data)
-        print("Producto info: ", products)
         user.delete_app()
         return Response({"productos": products})
     

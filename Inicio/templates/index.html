@@ -22,6 +22,9 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'inicio/css/base.css' %}">
         <link rel="stylesheet" href="{% static 'inicio/css/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'inicio/css/dropdown.css' %}">
+        <link rel="stylesheet" href="{% static 'inicio/css/carrusel.css' %}">
+        
         {% block css %}
         {% endblock %}
 
@@ -29,17 +32,23 @@
 
 <body>
     <div class="body">
+
         <nav class="navi">
-            <a href="/" title="Inicio">
+            <a href="/" title="Inicio" class="logo">
                 <img src="{% static 'inicio/img/logo.png'%}" alt="TinyTreasures" class="img-logo">
             </a>
             <div class="buttons-container">
-                <button type="button" id="btn-cart" onclick="window.location.href='/'" title="Carrito">
-                    <svg width="800px" height="800px" viewBox="0 0 24 24" class="icon" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path class="path" d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"/>
-                    </svg>
-                </button>
-            
+                <div class = "dropdown-container">
+                    <button type="button" id="btn-cart" onclick="window.location.href='/'" title="Carrito">
+                        <svg width="800px" height="800px" viewBox="0 0 24 24" class="icon" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path class="path" d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"/>
+                        </svg>
+                    </button>
+                    <div id="dropdown" class="dropdown">
+                        <p class="dropdown-content">Sin productos</p>
+                    </div>
+                </div>
+
                 <button type="button" id="btn-products" onclick="window.location.href='/Productos'" title="Buscar">
                     <svg width="100px" height="100px" viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
                         <path class="path" d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"/>
@@ -62,11 +71,38 @@
                 {% endif %}
             </div>
         </nav>
+
         <script src="{% static 'Inicio/js/limpiarcache.js' %}"></script>
+
+
         <main>
             {% block content %}
             <h1 class="title">Bienvenido a TinyTreasures</h1>
             <h3>La tienda online a menor escala del mercado tanto para compradores como para vendedores <br><span class="">Inicia sesion ya para que puedas añadir productos a tu carrito</span></h3>
+
+
+            <div class="carousel">
+                <div class="carousel-inner">
+                    {% for image in images %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image }}" class="imagenes" alt="Imagen de producto">
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control prev" onclick="moveCarousel(-1)">&#10094;</button>
+                <button class="carousel-control next" onclick="moveCarousel(1)">&#10095;</button>
+            </div>
+
+            <div class="section-1">
+                <h1 class="title">Compra tu producto con seguridad nosotros nos encargamos del envio</h1>
+                <img src="https://images.pexels.com/photos/4393426/pexels-photo-4393426.jpeg" class="imagenes" alt="Imagen de producto">
+            </div>
+            <h1></h1>
+            <div class="section-2">
+                <img src="https://images.pexels.com/photos/928199/pexels-photo-928199.jpeg" class="imagenes" alt="Imagen de producto">
+                <h1 class="title">Productos de calidad a tu alcance, recibe justo lo que estabas pidiendo y en tiempo record</h1>
+            </div>
+            <script src="{% static 'Inicio/js/carrusel.js' %}"></script>
             {% endblock %}
         </main>
 
