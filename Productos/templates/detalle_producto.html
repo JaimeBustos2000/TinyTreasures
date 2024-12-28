@@ -13,6 +13,7 @@
             <img src={{product.url}} class="card-img-top" id="product-image" alt={{ product.nombre }}>
         </div>
         
+        <input type="hidden" id="product-id" value={{ product.id }}>
         <h5 class="card-title text-center">Nombre: {{product.nombre}}</h5>
         <p class="card-text text-center">Descripcion: {{product.descripcion}}</p>
         <p class="card-text text-center">Precio: {{product.precio}}</p>
@@ -22,14 +23,16 @@
 
     <div class="buy-cart-info">
         <select class="form-select" aria-label="Default select example">
-            <option selected>Seleccione la cantidad</option>
+            <option selected disabled>Seleccione la cantidad</option>
             {% for i in stock_list %}
-                <option value="{{i}}" onclick="updateDropdownText({{i}})">{{i}}</option>
+                <option value="{{i}}">{{i}}</option>
             {% endfor %}
         </select>
-        <button class="btn btn-primary">Comprar</button>
-        <button class="btn btn-primary">Agregar al carrito</button>
+        <button class="btn btn-primary" id="buy-now">Comprar</button>
+        <button class="btn btn-primary" id="add-to-cart">Agregar al carrito</button>
     </div>
 </div>
-<script> </script>
+<script src="{% static 'Productos/js/add_to_cart.js' %}"></script>
+<script src="{% static 'Productos/js/drawcart.js' %}"></script>
+
 {% endblock %}

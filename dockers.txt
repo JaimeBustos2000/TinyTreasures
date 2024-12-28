@@ -1,0 +1,79 @@
+# Pasos para instalar Docker y ejecutar un contenedor con Django en Windows
+
+## Instalación de Docker
+
+1. Descarga Docker Desktop desde el sitio oficial: https://www.docker.com/products/docker-desktop
+2. Ejecuta el instalador y sigue las instrucciones en pantalla.
+3. Una vez instalado, inicia Docker Desktop desde el menú de inicio.
+4. Asegúrate de que Docker esté funcionando correctamente ejecutando el siguiente comando en PowerShell o CMD:
+    ```
+    docker --version
+    ```
+
+## Comandos básicos para ejecutar un contenedor con Django
+
+1. Crea un archivo `Dockerfile` en el directorio raíz de tu proyecto Django con el siguiente contenido:
+    ```
+    FROM python:3.9-slim
+
+    # Establece el directorio de trabajo en /app
+    WORKDIR /app
+
+    # Copia los archivos de requisitos y los instala
+    COPY requirements.txt /app/
+    RUN pip install --no-cache-dir -r requirements.txt
+
+    # Copia el resto de los archivos del proyecto
+    COPY . /app/
+
+    # Expone el puerto 8000
+    EXPOSE 8000
+
+    # Comando para ejecutar el servidor de desarrollo de Django
+    CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    ```
+
+2. Crea un archivo `docker-compose.yml` en el mismo directorio con el siguiente contenido:
+    ```
+    version: '3.8'
+
+    services:
+      web:
+         build: .
+         ports:
+            - "8000:8000"
+         volumes:
+            - .:/app
+         environment:
+            - DEBUG=1
+    ```
+
+3. Construye la imagen de Docker:
+    ```
+    docker-compose up --build
+    ```
+
+
+4. Accede a tu aplicación Django en tu navegador web en la dirección `http://localhost:8000`.
+
+## Comandos adicionales
+
+- Para detener el contenedor:
+  ```
+  docker-compose down
+  ```
+
+- Para listar los contenedores en ejecución:
+  ```
+  docker ps
+  ```
+
+- Para acceder a una terminal dentro del contenedor:
+  ```
+  docker exec -it <container_id> /bin/bash
+  ```
+
+- Para eliminar todas las imágenes no utilizadas:
+  ```
+  docker system prune -a
+  ```

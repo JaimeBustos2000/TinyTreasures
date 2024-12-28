@@ -6,7 +6,7 @@ function limpiarCache() {
     let button = document.getElementById('disconnect');
     if (button) {
         button.addEventListener('click', function () {
-            localStorage.removeItem('productos');
+            localStorage.removeItem('apiproductos');
             console.log('Cache limpiada');
         });
     } else {

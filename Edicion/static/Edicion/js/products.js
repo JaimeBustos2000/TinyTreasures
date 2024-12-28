@@ -2,7 +2,6 @@ let datos;
 
 function fetch_data() {
     // Intenta obtener los datos de localStorage
-    localStorage.clear()
     let storedData = localStorage.getItem('productos');
     if (storedData) {
         // Si los datos ya están guardados, los carga desde localStorage
@@ -10,27 +9,27 @@ function fetch_data() {
         console.log('Datos cargados de localStorage:', datos);
         render_products();
     }
+    else {
+        // En cualquier caso, hace la llamada a la API para obtener los datos más recientes
+        fetch('http://127.0.0.1:8000/api/products')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la API');
+                }
+                return response.json();
+            })
+            .then(data => {
+                datos = data.productos;
+                console.log('Datos cargados de la API:', datos);
 
-    // En cualquier caso, hace la llamada a la API para obtener los datos más recientes
-    fetch('http://127.0.0.1:8000/api/products')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la respuesta de la API');
-            }
-            return response.json();
-        })
-        .then(data => {
-            datos = data.productos;
-            console.log('Datos cargados de la API:', datos);
-
-            // Limpia el localStorage y guarda los datos más recientes
-            localStorage.clear();
-            localStorage.setItem('productos', JSON.stringify(datos));
-            render_products();
-        })
-        .catch(error => {
-            console.error('Error al cargar los productos:', error);
-        });
+                localStorage.removeItem('productos');
+                localStorage.setItem('productos', JSON.stringify(datos));
+                render_products();
+            })
+            .catch(error => {
+                console.error('Error al cargar los productos:', error);
+            });
+    }
 }
 
 function render_products() {
@@ -40,6 +39,7 @@ function render_products() {
         return;
     }
 
+    console.log('Renderizando productos:', datos);
     if (datos && datos.length > 0) {
         let html = '';
 
@@ -48,11 +48,12 @@ function render_products() {
             const productUrlParts = product.url.split('/');
             const productCode = productUrlParts[2];
 
-            
-            const destinationUrl = `/Mis-Productos/edit/${productCode}`; 
+            // Construcción de la URL de destino
+            const destinationUrl = `http://127.0.0.1:8000/Mis-Productos/edit/${productCode}`;
 
+            // Concatenación del HTML usando template literals
             html += `
-            <a href="${destinationUrl}" class="card-link" title="Ver mas">
+            <a href="${destinationUrl}" class="card-link" title="Ver más">
                 <div class="card">
                     <div class="card-body">
                         <div class="image-container">
@@ -74,6 +75,7 @@ function render_products() {
         `;
     }
 }
+
 
 
 document.addEventListener('DOMContentLoaded', fetch_data);

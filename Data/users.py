@@ -31,7 +31,7 @@ class User(Auth):
             return False
 
     def authenticate_email_password(self):
-        exists = load_dotenv('Data\.env')
+        exists = load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
         print(exists)
         if exists:
             api_key = os.getenv('API_KEY')

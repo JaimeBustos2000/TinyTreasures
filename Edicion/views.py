@@ -91,6 +91,7 @@ def new_product(request):
             directory.subfolder_from_directory(uid,id_producto)
             directory.save_image_from_uid_and_product_id(uid,id_producto,form_data_files)
             
+            print("form_data_files name:",form_data_files.name)
             data_instance.append_characteristic_to_product(uid,
                                                            id_producto,
                                                            {'url':f'public/{uid}/{id_producto}/{form_data_files.name}'})
@@ -121,9 +122,34 @@ def edit_product(request,product_code):
     user_id = request.session["user_id"]
     producto = data_instance.get_one_product(user_id,product_code)
     
+    product_dict = {'id':product_code}
+    
     user.delete_app()
     return render(request,'editar.html',context={
+        "producto_id":product_dict,
         "categorias":categorias,
         "colores":colores,
         "producto":producto
     })
+    
+def apply_changues(request,product_code):
+    if request.method == "POST":
+        user = User()
+        bd_ref = user.bd_references()
+        data_instance = dataOperations(bd_ref)
+        user_id = request.session["user_id"]
+        product_data = request.POST.dict()
+        del product_data['csrfmiddlewaretoken']
+        
+        saved_data_product = data_instance.get_one_product(user_id,product_code)
+        url = saved_data_product['url']
+        product_data['url'] = url
+
+        
+        try:
+            data_instance.overwrite_and_update_data(user_id,product_code,product_data)
+            user.delete_app()
+            return JsonResponse({"status":"OK","message":"Producto actualizado"},status=200)
+        except Exception as e:
+            user.delete_app()
+            return JsonResponse({"status":"ERROR","message":"Error al actualizar producto"},status=500)

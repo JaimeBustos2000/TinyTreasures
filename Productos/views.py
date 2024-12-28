@@ -45,11 +45,16 @@ def detalle_producto(request,product_code):
     user = User()
     bdref = user.bd_references()
     operation = dataOperations(bdref)
-    user_id = request.session['user_id']
+    if not request.user.is_authenticated:
+        user_id =""
+    else:
+        user_id = request.session['user_id']
     product = operation.get_one_product(user_id,product_code)
+    print('product:', product)
     # concatenar base server 127.0.0.1:8000 a la url
     product['url'] = 'http://127.0.0.1:8000/'+product['url']
     product['stock'] = int(product['stock'])
     stock_list = list(range(1, int(product['stock']) + 1))
+    product['id'] = product_code
     user.delete_app()
     return render(request,'detalle_producto.html',context={"product":product,"stock_list":stock_list})

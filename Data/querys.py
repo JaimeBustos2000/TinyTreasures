@@ -122,6 +122,7 @@ class dataOperations:
                 product_dict = product.to_dict()
                 products_list[i] = product_dict
         
+        print('Productos:', products_list)
         return products_list
 
     def create_new_product_to_user(self,uid,data):
@@ -147,6 +148,7 @@ class dataOperations:
         try:
             product_table = self.__conn.collection(uid)
             product_table.document(product_id).update(characteristic)
+            
             return True
         except Exception as e:
             print('Error al agregar característica:', e)
@@ -171,7 +173,29 @@ class dataOperations:
         print('UID:', uid)
         print('Product ID:', product_id)
         
-        product_table = self.__conn.collection(uid)
-        product = product_table.document(product_id).get().to_dict()
-        print('Producto:', product)
-        return product
+        if uid == '':
+            # iterar sobre las colecciones de todos los usuarios en busca del product id
+            users_table = self.__conn.collection('users')
+            users = users_table.get()
+            for user in users:
+                user_id = user.id
+                product_table = self.__conn.collection(user_id)
+                product = product_table.document(product_id).get().to_dict()
+                if product:
+                    print('Producto:', product)
+                    return product
+        else:
+            product_table = self.__conn.collection(uid)
+            product = product_table.document(product_id).get().to_dict()
+            print('Producto :', product)
+            return product
+        
+    def overwrite_and_update_data(self,uid,product_code,data):
+        try:
+            userstable = self.__conn.collection(uid)
+            userstable.document(product_code).set(data)
+            return True
+        except Exception as e:
+            print('Error al actualizar datos:', e)
+            return False
+            
