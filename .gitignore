@@ -6,3 +6,4 @@ __pycache__/
 *.log
 # Ignorar archivos sensibles de firebase
 *.json
+*.env
